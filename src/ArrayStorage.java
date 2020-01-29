@@ -23,16 +23,16 @@ public class ArrayStorage {
     }
 
     public Resume get(String uuid) {
-        Integer index = getIndexByIdentifier(uuid);
-        if (index != null) {
+        Integer index = getIndex(uuid);
+        if (index != -1) {
             return storage[index];
         }
         return null;
     }
 
     public void delete(String uuid) {
-        Integer index = getIndexByIdentifier(uuid);
-        if (index != null) {
+        Integer index = getIndex(uuid);
+        if (index != -1) {
             storageSize--;
             storage[index] = storage[storageSize];
             storage[storageSize] = null;
@@ -53,11 +53,11 @@ public class ArrayStorage {
         return storageSize;
     }
 
-    private Integer getIndexByIdentifier(String uuid) {
+    private int getIndex(String uuid) {
         int numberOfResumes = 0;
         int index = 0;
         for (int i = 0; i < storageSize; i++) {
-            if (storage[i].getIdentifier().equals(uuid)) {
+            if (storage[i].getUuid().equals(uuid)) {
                 numberOfResumes++;
                 index = i;
             }
@@ -65,12 +65,8 @@ public class ArrayStorage {
         if (numberOfResumes == 1) {
             return index;
         } else {
-            if (numberOfResumes == 0) {
                 System.out.println("Не найдено резюме с идентификатором " + uuid);
-            } else {
-                System.out.println("Найдено несколько резюме с идентификатором " + uuid);
-            }
         }
-        return null;
+        return -1;
     }
 }
