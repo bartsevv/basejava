@@ -10,6 +10,7 @@ public class ArrayStorage {
 
     public void clear() {
         Arrays.fill(storage, 0, storageSize, null);
+        storageSize = 0;
     }
 
     public void save(Resume resume) {
@@ -42,11 +43,14 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     public Resume[] getAll() {
+        if (storageSize == 0) {
+            System.out.println("Массив с резюме пуст");
+        }
         return Arrays.copyOfRange(storage, 0, storageSize);
     }
 
     public int size() {
-        return storage.length;
+        return storageSize;
     }
 
     private Integer getIndexByIdentifier(String uuid) {
